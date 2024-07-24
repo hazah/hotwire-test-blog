@@ -1,0 +1,31 @@
+<div id="<%= dom_id comment %>">
+  <% unless controller_name == "posts" %>
+    <p class="my-5">
+      <strong class="block font-medium mb-1">Post:</strong>
+      <%= link_to comment.post.title, comment.post %>
+    </p>
+  <% end %>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">User:</strong>
+    <%= comment.user.email %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Title:</strong>
+    <%= comment.title %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Body:</strong>
+    <%= comment.body %>
+  </p>
+
+</div>
+
+<% unless controller_name == "comments" && action_name == "show" %>
+  <%= link_to "Edit this comment", [:edit, comment], class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  <div class="inline-block ml-2">
+    <%= button_to "Destroy this comment", comment, method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+  </div>
+<% end %>

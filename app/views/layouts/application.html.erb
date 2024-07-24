@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= yield :title %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <header>
+      <h1 class="text-4xl font-bold text-center mt-10">Blog</h1>
+      <nav>
+        <ul class="flex justify-center mt-5">
+          <li class="mr-5"><%= link_to "Home", root_path %></li>
+          <li class="mr-5"><%= link_to "Posts", Post %></li>
+          <% if user_signed_in? %>
+            <li class="mr-5"><%= link_to "New post", Post.new %></li>
+            <li class="mr-5"><%= link_to "New comment", Comment.new %></li>
+            <li class="mr-5"><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+          <% else %>
+            <li class="mr-5"><%= link_to "Sign up", new_user_registration_path %></li>
+            <li class="mr-5"><%= link_to "Sign in", new_user_session_path %></li>
+          <% end %>
+        </ul>
+    </header>
+
+    <main class="container mx-auto mt-28 px-5 flex">
+      <%= yield %>
+    </main>
+  </body>
+</html>
