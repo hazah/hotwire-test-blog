@@ -11,22 +11,22 @@
     
     <%= render @post %>
 
-    <div class="flex justify-between items-center">
-      <h2 class="font-bold text-4xl"><%= link_to "Comments", [@post, Comment] %></h2>
-      <%= link_to "New comment", [@post, Comment.new], class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
-    </div>
-
-    <div id="comments" class="min-w-full">
-      <%= render @post.comments %>
-    </div>
-
     <%= link_to "Back to posts", Post, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <% if current_user %>
+
+    <% if user_signed_in? %>
       <%= link_to "Edit this post", [:edit, @post], class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
       <div class="inline-block ml-2">
         <%= button_to "Destroy this post", @post, method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
       </div>
     <% end %>
-  </div>
+
+    <div class="flex justify-between items-center">
+      <h2 class="font-bold text-4xl"><%= link_to "Comments", [@post, Comment] %></h2>
+      <%= link_to "New comment", [@post, Comment.new], class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" if user_signed_in? %>
+    </div>
+
+    <div id="comments" class="min-w-full">
+      <%= render @post.comments %>
+    </div>
   </div>
 </div>
